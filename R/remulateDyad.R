@@ -330,7 +330,8 @@ parse_formula <- function(formula,pred = FALSE){
         "otp", "itp", "osp", "isp", #18 #19 #20 #21
         "psABBA", "psABBY", "psABXA",  #22 #23 #24 
         "psABXB", "psABXY", "psABAY",  #25 #26 #27
-        "interact" #28
+        "interact", "inertia_s", "reciprocity_s", #28 #29 #30
+        "otp_s", "itp_s" #31 #32 #28
     )
 
     # Prepare effects for switch  case
