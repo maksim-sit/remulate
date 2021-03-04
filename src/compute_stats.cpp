@@ -502,8 +502,56 @@ arma::mat compute_stats(const arma::vec& int_effects,int P,const arma::mat& rs,c
                 arma::vec stat2 = statmat.col(1);
                 statsrow = stat1 % stat2;
             }
+            //inertia_s
+            case 29:{
+                arma::vec max_sent = arma::max(adj_mat,1);
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    // -1 because r indexes from 1 and c++ from 0
+                    statsrow(j) = max_sent(rs(j,0)-1);
+                }
+                break;
+            }
+            //reciprocity_s
+            case 30:{
+                arma::rowvec max_received = arma::max(adj_mat,0);
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    // -1 because r indexes from 1 and c++ from 0
+                    statsrow(j) = max_received(rs(j,0)-1);
+                }
+                break;
+            }
+            //otp_s
+            case 31:{
+                //i ->h , h ->j
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    for(arma::uword h = 0; h < actors.n_elem; ++h) {
+                        statsrow(j) += std::min(adj_mat(rs(j,0)-1,h) , adj_mat(h , rs(j,1)-1));
+                    }
+                }
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    arma::uword sender = rs(j,0);
+                    arma::uvec index = find(rs.col(0) == sender);
+                    statsrow(j) = arma::max(statsrow(index));
+                }
+                break;
+            }
+            //itp_s
+            case 32:{
+                //j -> h , h->i
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    for(arma::uword h = 0; h < actors.n_elem; ++h) {
+                        statsrow(j) += std::min(adj_mat(rs(j,1)-1,h) , adj_mat(h , rs(j,0)-1));
+                    }
+                }
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    arma::uword sender = rs(j,0);
+                    arma::uvec index = find(rs.col(0) == sender);
+                    statsrow(j) = arma::max(statsrow(index));
+                }
+                break;
+            }
 
-
+                
         //end switch case    
         }      
         if(skip_flag(effect)==0){
