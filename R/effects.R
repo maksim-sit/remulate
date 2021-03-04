@@ -419,4 +419,58 @@ prepEndoVar <- function(effect_name, param, scaling) {
     out
 }
 
+#'inertia_s
+#' 
+#' This function specifies the input for the inertia_s effect in the \code{formula} argument for the function \code{\link{remulateDyad}}. Not to be used independently
+#' 
+#' @param param numeric value or function with time parameter. Specifies the value of the effect for the statistic in the REM model
+#' 
+#' @param scaling the method for scaling the inertia_s statistic. \code{"raw"} [default] gives raw value of the statistic at time t, \code{"std"} the statistic is standardized per time point, and \code{"prop"} denotes proportional scaling in which raw counts are divided by the out degree of the sender at time t.
+#' @export 
+inertia_s <- function(param=NULL, scaling=c("raw","std","prop")){
+      scaling <-  match.arg(scaling)
+      out <- prepEndoVar("inertia_s",param,scaling)
+      out
+}
 
+#'reciprocity_s
+#' 
+#' This function specifies the input for the reciprocity_s effect in the \code{formula} argument for the function \code{\link{remulateDyad}}. Not to be used independently
+#' 
+#' @param param numeric value or function with time parameter. Specifies the value of the effect for the statistic in the REM model
+#' 
+#' @param scaling the method for scaling the reciprocity_s statistic. \code{"raw"} [default] gives raw value of the statistic at time t, \code{"std"} the statistic is standardized per time point, and \code{"prop"} denotes proportional scaling in which raw counts are divided by the out degree of the sender at time t.
+#' @export
+reciprocity_s <- function(param=NULL, scaling=c("raw","std","prop")){
+  scaling <-  match.arg(scaling)
+  out <- prepEndoVar("reciprocity_s",param,scaling)
+  out
+}
+
+#'otp_s
+#' 
+#' This function specifies the input for the otp_s effect in the \code{formula} argument for the function \code{\link{remulateDyad}}. Not to be used independently
+#' 
+#' @param param numeric value or function with time parameter. Specifies the value of the effect for the statistic in the REM model
+#' 
+#' @param scaling the method for scaling the otp_s statistic. \code{"raw"} [default] gives raw value of the statistic at time t, \code{"std"} the statistic is standardized per time point, and \code{"prop"} denotes proportional scaling in which raw counts are divided by the out degree of the sender at time t.
+#' @export
+otp_s <- function(param=NULL, scaling=c("raw","std","prop")){
+  scaling <-  match.arg(scaling)
+  out <- prepEndoVar("otp_s",param,scaling)
+  out
+}
+
+#'itp_s
+#' 
+#' This function specifies the input for the itp_s effect in the \code{formula} argument for the function \code{\link{remulateDyad}}. Not to be used independently
+#' 
+#' @param param numeric value or function with time parameter. Specifies the value of the effect for the statistic in the REM model
+#' 
+#' @param scaling the method for scaling the itp_s statistic. \code{"raw"} [default] gives raw value of the statistic at time t, \code{"std"} the statistic is standardized per time point, and \code{"prop"} denotes proportional scaling in which raw counts are divided by the out degree of the sender at time t.
+#' @export
+itp_s <- function(param=NULL, scaling=c("raw","std","prop")){
+  scaling <-  match.arg(scaling)
+  out <- prepEndoVar("itp_s",param,scaling)
+  out
+}
