@@ -78,7 +78,7 @@ remulateActor <- function(sender_formula,dyad_formula,actors,M,burn_in = 0,risk_
     s_effects <- unname(s_effects$effects)
     s_P <- length(s_effects)
 
-    if(any(!s_int_effects %in% c(1,  2, 12, 14,  16, 28))){
+    if(any(!s_int_effects %in% c(1,  2, 12, 14,  16, 28, 29, 30, 31, 32))){
         stop(paste("An effect specified in sender_formula is not a sender effect"))
     }
 
