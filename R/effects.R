@@ -474,3 +474,31 @@ itp_s <- function(param=NULL, scaling=c("raw","std","prop")){
   out <- prepEndoVar("itp_s",param,scaling)
   out
 }
+
+#'osp_s
+#' 
+#' This function specifies the input for the osp_s effect in the \code{formula} argument for the function \code{\link{remulateDyad}}. Not to be used independently
+#' 
+#' @param param numeric value or function with time parameter. Specifies the value of the effect for the statistic in the REM model
+#' 
+#' @param scaling the method for scaling the osp_s statistic. \code{"raw"} [default] gives raw value of the statistic at time t, \code{"std"} the statistic is standardized per time point, and \code{"prop"} denotes proportional scaling in which raw counts are divided by the out degree of the sender at time t.
+#' @export
+osp_s <- function(param=NULL, scaling=c("raw","std","prop")){
+  scaling <-  match.arg(scaling)
+  out <- prepEndoVar("osp_s",param,scaling)
+  out
+}
+
+#'isp_s
+#' 
+#' This function specifies the input for the isp_s effect in the \code{formula} argument for the function \code{\link{remulateDyad}}. Not to be used independently
+#' 
+#' @param param numeric value or function with time parameter. Specifies the value of the effect for the statistic in the REM model
+#' 
+#' @param scaling the method for scaling the isp_s statistic. \code{"raw"} [default] gives raw value of the statistic at time t, \code{"std"} the statistic is standardized per time point, and \code{"prop"} denotes proportional scaling in which raw counts are divided by the out degree of the sender at time t.
+#' @export
+isp_s <- function(param=NULL, scaling=c("raw","std","prop")){
+  scaling <-  match.arg(scaling)
+  out <- prepEndoVar("isp_s",param,scaling)
+  out
+}
