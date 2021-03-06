@@ -550,7 +550,37 @@ arma::mat compute_stats(const arma::vec& int_effects,int P,const arma::mat& rs,c
                 }
                 break;
             }
-
+            //osp_s
+            case 33:{
+                // i ->h , j ->h
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    for(arma::uword h = 0; h < actors.n_elem; ++h) {
+                        statsrow(j) += std::min(adj_mat(rs(j,0)-1,h) , adj_mat(rs(j,1)-1 , h));
+                    }
+                }
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    arma::uword sender = rs(j,0);
+                    arma::uvec index = find(rs.col(0) == sender);
+                    statsrow(j) = arma::max(statsrow(index));
+                }
+                break;
+            }
+            //isp_s
+            case 34:{
+                // h ->i , h ->j
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    for(arma::uword h = 0; h < actors.n_elem; ++h) {
+                        statsrow(j) += std::min(adj_mat(h,rs(j,0)-1) , adj_mat(h,rs(j,1)-1));
+                    }
+                }
+                for(arma::uword j=0; j<rs.n_rows;j++){
+                    arma::uword sender = rs(j,0);
+                    arma::uvec index = find(rs.col(0) == sender);
+                    statsrow(j) = arma::max(statsrow(index));
+                }
+                break;
+            }
+            
                 
         //end switch case    
         }      
@@ -677,6 +707,69 @@ arma::mat compute_stats(const arma::vec& int_effects,int P,const arma::mat& rs,c
                 break;
             }
             case 21:{
+                if(scaling(i)==2){
+                    statmat.col(i) = standardize(statmat.col(i));
+                }
+                break;
+            }
+            //inertia_s
+            case 29:{
+                //cout << "in inertia scaling is:"<<scaling(i)<<endl;
+                if(scaling(i)==2){
+                    statmat.col(i) = standardize(statmat.col(i));
+                }
+                else if (scaling(i)==3)//outdegreeSender
+                {
+                    arma::vec deno(rs.n_rows,arma::fill::zeros);
+                    arma::vec out_degrees = arma::sum(adj_mat,1);
+                    for(arma::uword j=0; j<rs.n_rows;j++){
+                        deno(j) = out_degrees(rs(j,0)-1);
+                    }
+                    statmat.col(i) = statmat.col(i)/deno;
+                    statmat.col(i).replace(arma::datum::nan,0);
+                }
+                break;
+            }
+            //reciprocity_s
+            case 30:{
+                if(scaling(i)==2){
+                    statmat.col(i) = standardize(statmat.col(i));
+                }
+                else if (scaling(i)==3)//indegreeSender
+                {
+                    arma::vec deno(rs.n_rows,arma::fill::zeros);
+                    arma::rowvec in_degrees = arma::sum(adj_mat,0);
+                    for(arma::uword j=0; j<rs.n_rows;j++){
+                        deno(j) = in_degrees(rs(j,0)-1);
+                    }
+                    statmat.col(i) = statmat.col(i)/deno;
+                    statmat.col(i).replace(arma::datum::nan,0);
+                }
+                break;
+            }
+            //otp_s
+            case 31:{
+                if(scaling(i)==2){
+                    statmat.col(i) = standardize(statmat.col(i));
+                }
+                break;
+            }
+            //itp_s
+            case 32:{
+                if(scaling(i)==2){
+                    statmat.col(i) = standardize(statmat.col(i));
+                }
+                break;
+            }
+            //osp_s
+            case 33:{
+                if(scaling(i)==2){
+                    statmat.col(i) = standardize(statmat.col(i));
+                }
+                break;
+            }
+            //isp_s
+            case 34:{
                 if(scaling(i)==2){
                     statmat.col(i) = standardize(statmat.col(i));
                 }
